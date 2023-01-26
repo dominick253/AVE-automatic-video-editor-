@@ -11,7 +11,6 @@ from shutil import copyfile, rmtree
 import os
 import argparse
 from pytube import YouTube
-import argparse
 
 if os.path.exists('NEW-TEMP'):
     choice = input("The NEW-TEMP folder already exists. Do you want to delete it? (y/n)")
@@ -81,12 +80,12 @@ parser.add_argument('--silent_threshold', type=float, default=0.03,
                     help="the volume amount that frames' audio needs to surpass to be consider \"sounded\". It ranges from 0 (silence) to 1 (max volume)")
 parser.add_argument('--sounded_speed', type=float, default=1.00,
                     help="the speed that sounded (spoken) frames should be played at. Typically 1.")
-parser.add_argument('--silent_speed', type=float, default=5.00,
+parser.add_argument('--silent_speed', type=float, default=10.00,
                     help="the speed that silent frames should be played at. 999999 for jumpcutting.")
-parser.add_argument('--frame_margin', type=float, default=1,
+parser.add_argument('--frame_margin', type=float, default=2,
                     help="some silent frames adjacent to sounded frames are included to provide context. How many frames on either the side of speech should be included? That's this variable.")
 parser.add_argument('--sample_rate', type=float, default=44100, help="sample rate of the input and output videos")
-parser.add_argument('--frame_rate', type=float, default=30,
+parser.add_argument('--frame_rate', type=float, default=60,
                     help="frame rate of the input and output videos. optional... I try to find it out myself, but it doesn't always work.")
 parser.add_argument('--frame_quality', type=int, default=3,
                     help="quality of frames to be extracted from input video. 1 is highest, 31 is lowest, 3 is the default.")
@@ -94,8 +93,11 @@ parser.add_argument('--frame_quality', type=int, default=3,
 args = parser.parse_args()
 
 # Get silent speed from user input
-silent_speed = input("Enter the speed you want for the silent parts of the video: ")
-args.silent_speed = float(silent_speed)
+#silent_speed = input("Enter the speed you want for the silent parts of the video: ")
+#args.silent_speed = float(silent_speed)
+#frame_rate = input("Enter the frame rate of input video:")
+#silent_threshold=input("ranges from 0 (silence) to 1 (max volume). Default 0.03:")
+#frame_margin=input("How many frames on either the side of speech should be included?:")
 
 frameRate = args.frame_rate
 SAMPLE_RATE = args.sample_rate
@@ -114,7 +116,7 @@ if INPUT_FILE == None:
 assert INPUT_FILE != None, "No input file provided"
 
 
-assert INPUT_FILE != None, "why u put no input file, that dum"
+#assert INPUT_FILE != None, "why u put no input file, that dum"
 
 if len(args.output_file) >= 1:
     OUTPUT_FILE = args.output_file
